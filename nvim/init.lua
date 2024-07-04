@@ -177,10 +177,16 @@ require('telescope').setup({
     layout_strategy = 'horizontal',
     layout_config = {
       horizontal = {
-        width = 0.9,
-        height = 0.6,
-        preview_width = 80,
-      }
+        anchor = 'E',
+        width = 0.6,
+        height = 0.95,
+        preview_width = 0.7,
+      },
+      cursor = {
+        width = 0.6,
+        preview_width = 0.7,
+        height = 0.4,
+      },
       -- other layout configuration here
     },
   }
@@ -214,6 +220,7 @@ require('mason-lspconfig').setup({
     end,
   },
 })
+
 lspconfig.dartls.setup({})
 lspconfig.sourcekit.setup({})
 
@@ -348,13 +355,13 @@ vim.opt.foldminlines = 1
 
 
 local builtin = require('telescope.builtin')
-vim.keymap.set('n', '<leader>ff', builtin.find_files, {})
-vim.keymap.set('n', '<leader>fg', builtin.live_grep, {})
-vim.keymap.set('n', '<C-p>', builtin.git_files, {})
-vim.keymap.set('n', '<leader>tt', vim.cmd.Telescope, {})
-vim.keymap.set('n', '<leader>gr', builtin.lsp_references, {})
-vim.keymap.set('n', '<leader>gp', builtin.lsp_incoming_calls, {})
-vim.keymap.set('n', '<leader>gn', builtin.lsp_outgoing_calls, {})
-vim.keymap.set('n', '<leader>gi', builtin.lsp_implementations, {})
-vim.keymap.set('n', '<leader>gd', builtin.lsp_definitions, {})
-vim.keymap.set('n', '<leader>gD', builtin.lsp_type_definitions, {})
+vim.keymap.set('n', '<leader>ff', builtin.find_files)
+vim.keymap.set('n', '<leader>fg', builtin.live_grep)
+vim.keymap.set('n', '<C-p>', builtin.git_files)
+vim.keymap.set('n', '<leader>tt', vim.cmd.Telescope)
+vim.keymap.set('n', '<leader>gr', function() builtin.lsp_references({ layout_strategy = 'cursor' }) end)
+vim.keymap.set('n', '<leader>gp', function() builtin.lsp_incoming_calls({ layout_strategy = 'cursor' }) end)
+vim.keymap.set('n', '<leader>gn', function() builtin.lsp_outgoing_calls({ layout_strategy = 'cursor' }) end)
+vim.keymap.set('n', '<leader>gi', function() builtin.lsp_implementations({ layout_strategy = 'cursor' }) end)
+vim.keymap.set('n', '<leader>gd', function() builtin.lsp_definitions({ layout_strategy = 'cursor' }) end)
+vim.keymap.set('n', '<leader>gD', function() builtin.lsp_type_definitions({ layout_strategy = 'cursor' }) end)
