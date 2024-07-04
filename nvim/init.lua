@@ -157,7 +157,17 @@ require('lazy').setup({
       -- If you want the formatexpr, here is the place to set it
       vim.o.formatexpr = "v:lua.require'conform'.formatexpr()"
     end,
-  }
+  },
+  {
+    "nvim-neo-tree/neo-tree.nvim",
+    branch = "v3.x",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
+      "MunifTanjim/nui.nvim",
+      -- "3rd/image.nvim", -- Optional image support in preview window: See `# Preview Mode` for more information
+    }
+  },
 })
 
 --
@@ -322,7 +332,7 @@ end, { desc = "toggle diagnostic" })
 
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
-vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
+-- vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
 vim.keymap.set("n", "<leader>d", vim.cmd.DiagnosticToggle)
 
 local mark = require("harpoon.mark")
@@ -365,3 +375,7 @@ vim.keymap.set('n', '<leader>gn', function() builtin.lsp_outgoing_calls({ layout
 vim.keymap.set('n', '<leader>gi', function() builtin.lsp_implementations({ layout_strategy = 'cursor' }) end)
 vim.keymap.set('n', '<leader>gd', function() builtin.lsp_definitions({ layout_strategy = 'cursor' }) end)
 vim.keymap.set('n', '<leader>gD', function() builtin.lsp_type_definitions({ layout_strategy = 'cursor' }) end)
+
+--- NeoTree Keymaps ---
+vim.keymap.set('n', '<leader>pv', function() vim.cmd.Neotree('toggle', 'reveal', 'right') end)
+vim.keymap.set('n', '<leader>po', function() vim.cmd.Neotree('toggle', 'reveal', 'float') end)
